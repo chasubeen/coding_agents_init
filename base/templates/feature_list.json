@@ -1,0 +1,31 @@
+{
+  "project": "PROJECT_NAME",
+  "updated": "YYYY-MM-DD",
+  "features": [
+    {
+      "id": "feat-01",
+      "priority": 1,
+      "area": "기능 영역 (예: data, model, api, ui)",
+      "title": "기능 이름",
+      "user_visible_behavior": "사용자/외부 관점에서 관찰 가능한 동작 한 줄",
+      "status": "not_started",
+      "validation": [
+        "Step 1: pytest tests/test_feature.py",
+        "Step 2: mypy src/feature.py"
+      ],
+      "acceptance_criteria": [
+        "조건 1",
+        "조건 2"
+      ],
+      "evidence": "검증 통과 증거 (로그/스크린샷/테스트 출력 경로)",
+      "notes": ""
+    }
+  ],
+  "_status_values": ["not_started", "in_progress", "blocked", "passing"],
+  "_rules": [
+    "한 번에 하나의 기능만 in_progress 상태 (Scope discipline)",
+    "validation 명령어는 실제로 실행 가능해야 함",
+    "passing으로 변경하려면 validation 전체 통과 + evidence 기록 필수 (거짓 passing 금지)",
+    "blocked는 막힌 이유를 notes에 문서화"
+  ]
+}

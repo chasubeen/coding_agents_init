@@ -1,0 +1,10 @@
+# local env files
+.env
+.env*.local
+
+# prisma
+prisma/*.db
+prisma/*.db-journal
+
+# agent lock files
+.locks/

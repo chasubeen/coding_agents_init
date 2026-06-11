@@ -1,0 +1,38 @@
+# Codex CLI 설정 (참조용 템플릿)
+# ------------------------------------------------------------------
+# Codex는 전역 설정을 ~/.codex/config.toml 에서 읽습니다.
+# 이 파일은 "이 프로젝트에서 Codex를 보조 교차검증 에이전트로 쓸 때 권장하는 설정"의
+# 참조 사본입니다. 아래 내용을 ~/.codex/config.toml 에 병합하거나,
+#   codex exec --profile crosscheck "..."
+# 처럼 프로필을 지정해 사용하세요. (키 이름은 Codex 버전에 따라 다를 수 있으니
+# `codex --help` / 공식 문서로 확인하세요.)
+# ------------------------------------------------------------------
+
+# 기본 모델 (계정에서 사용 가능한 모델로 조정)
+model = "gpt-5-codex"
+
+# 기본 승인 정책: 변경 전 사용자 승인 요구 (안전)
+approval_policy = "on-request"
+
+# 기본 샌드박스: 작업 디렉토리 내 쓰기만 허용
+sandbox_mode = "workspace-write"
+
+# ──────────────────────────────────────────────────────────────────
+# [profiles.crosscheck] — /cross-check 전용. "읽고 비평만" 하는 리뷰어.
+#   - read-only: Codex가 파일을 절대 수정하지 못하게 강제 (제2의 눈 역할에 적합)
+#   - never: 사람 개입 없이 한 번에 리뷰 출력
+# 사용: codex exec --profile crosscheck --skip-git-repo-check "<리뷰 프롬프트>"
+# ──────────────────────────────────────────────────────────────────
+[profiles.crosscheck]
+model = "gpt-5-codex"
+approval_policy = "never"
+sandbox_mode = "read-only"
+
+# ──────────────────────────────────────────────────────────────────
+# [profiles.worker] — /orchestrate 전용. 격리된 worktree에서 자율 구현.
+#   orchestrator 모듈이 git worktree로 격리하므로 workspace-write + full-auto 사용.
+# ──────────────────────────────────────────────────────────────────
+[profiles.worker]
+model = "gpt-5-codex"
+approval_policy = "never"
+sandbox_mode = "workspace-write"

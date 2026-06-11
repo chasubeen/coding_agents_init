@@ -1,0 +1,65 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -c:*)",
+      "Bash(PYTHONPATH=*:$PYTHONPATH python:*)",
+      "Bash(python -m orchestrator init:*)",
+      "Bash(python -m orchestrator plan:*)",
+      "Bash(python -m orchestrator add-task:*)",
+      "Bash(python -m orchestrator dispatch:*)",
+      "Bash(python -m orchestrator status:*)",
+      "Bash(python -m orchestrator merge:*)",
+      "Bash(python -m orchestrator sessions:*)",
+      "Bash(python -m orchestrator clean:*)",
+      "Bash(codex exec:*)",
+      "Bash(codex --version)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)"
+    ]
+  },
+  "env": {
+    "ORCH_AGENT_CMD": "codex",
+    "ORCH_APPROVAL_MODE": "full-auto",
+    "ORCH_USE_WORKTREE": "true",
+    "ORCH_BASE_BRANCH": "main",
+    "ORCH_AGENT_TIMEOUT": "600",
+    "CROSSCHECK_MIN_LINES": "30"
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "bash .claude/statusline.sh"
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          { "type": "command", "command": "bash hooks/suggest-compact.sh" },
+          { "type": "command", "command": "bash hooks/security-scan.sh" }
+        ],
+        "description": "전략적 compact 제안 + 편집 내용 보안 패턴 경고"
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          { "type": "command", "command": "bash hooks/bash-safety-guard.sh" },
+          { "type": "command", "command": "bash hooks/git-push-reminder.sh" },
+          { "type": "command", "command": "bash hooks/codex-crosscheck-reminder.sh" }
+        ],
+        "description": "위험 명령 가드 + git push 리마인더 + Codex 교차검증 제안(nudge)"
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "*",
+        "hooks": [
+          { "type": "command", "command": "bash hooks/lessons-reminder.sh", "timeout": 5 }
+        ],
+        "description": "세션 중 교훈 기록 리마인더"
+      }
+    ]
+  }
+}
