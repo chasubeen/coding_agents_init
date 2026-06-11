@@ -164,6 +164,18 @@ cross-check를 제안하기 좋은 시점:
 | 4 | `skill_graph/` | 누적 지식 wiki | 매 작업 |
 | 5 | Cowork 파일 | `plan.md`, `handoff.md`, `outputs/` | 매 세션 |
 
+### 안전장치 (Guardrails)
+
+실행 환경 자체에서 위험을 거르는 hook과 상태 표시를 함께 설치합니다 (anthropics/claude-code 패턴 기반).
+
+| 구성 | 이벤트 | 동작 |
+|------|--------|------|
+| `bash-safety-guard` | PreToolUse (Bash) | 치명적 명령(`rm -rf /`, fork bomb, 디스크 포맷, main 강제푸시)은 **차단**, 위험 명령(`curl\|bash`, force push, `chmod 777`)은 경고 |
+| `security-scan` | PreToolUse (Edit/Write) | 편집 내용의 위험 패턴(`eval`/`exec`, `pickle.load`/`torch.load`, `os.system`/`shell=True`, `yaml.load`, 하드코딩 시크릿, AWS 키) 경고 (비차단) |
+| `statusLine` | — | 터미널 하단에 `모델명 ⎇ branch 디렉터리` 형식의 상태 표시 |
+
+차단(`bash-safety-guard`)을 제외한 나머지는 모두 비차단 경고이며 흐름을 막지 않습니다. 임계값·패턴은 `hooks/`의 각 스크립트와 `.claude/settings.local.json`에서 조정할 수 있습니다.
+
 ## Slash command
 
 | Command | 설명 |
