@@ -1,14 +1,14 @@
 {
   "permissions": {
     "allow": [
-      "Bash(python -m orchestrator init:*)",
-      "Bash(python -m orchestrator plan:*)",
-      "Bash(python -m orchestrator add-task:*)",
-      "Bash(python -m orchestrator dispatch:*)",
-      "Bash(python -m orchestrator status:*)",
-      "Bash(python -m orchestrator merge:*)",
-      "Bash(python -m orchestrator sessions:*)",
-      "Bash(python -m orchestrator clean:*)",
+      "Bash(python -m harness.orchestrator init:*)",
+      "Bash(python -m harness.orchestrator plan:*)",
+      "Bash(python -m harness.orchestrator add-task:*)",
+      "Bash(python -m harness.orchestrator dispatch:*)",
+      "Bash(python -m harness.orchestrator status:*)",
+      "Bash(python -m harness.orchestrator merge:*)",
+      "Bash(python -m harness.orchestrator sessions:*)",
+      "Bash(python -m harness.orchestrator clean:*)",
       "Bash(codex exec:*)",
       "Bash(codex --version)",
       "Bash(git status:*)",
@@ -35,17 +35,17 @@
       {
         "matcher": "Edit|Write",
         "hooks": [
-          { "type": "command", "command": "bash hooks/suggest-compact.sh" },
-          { "type": "command", "command": "bash hooks/security-scan.sh" }
+          { "type": "command", "command": "bash harness/hooks/suggest-compact.sh" },
+          { "type": "command", "command": "bash harness/hooks/security-scan.sh" }
         ],
         "description": "전략적 compact 제안 + 편집 내용 보안 패턴 경고"
       },
       {
         "matcher": "Bash",
         "hooks": [
-          { "type": "command", "command": "bash hooks/bash-safety-guard.sh" },
-          { "type": "command", "command": "bash hooks/git-push-reminder.sh" },
-          { "type": "command", "command": "bash hooks/codex-crosscheck-reminder.sh" }
+          { "type": "command", "command": "bash harness/hooks/bash-safety-guard.sh" },
+          { "type": "command", "command": "bash harness/hooks/git-push-reminder.sh" },
+          { "type": "command", "command": "bash harness/hooks/codex-crosscheck-reminder.sh" }
         ],
         "description": "위험 명령 가드 + git push 리마인더 + Codex 교차검증 제안(nudge)"
       }
@@ -54,7 +54,7 @@
       {
         "matcher": "*",
         "hooks": [
-          { "type": "command", "command": "bash hooks/lessons-reminder.sh", "timeout": 5 }
+          { "type": "command", "command": "bash harness/hooks/lessons-reminder.sh", "timeout": 5 }
         ],
         "description": "세션 중 교훈 기록 리마인더"
       }

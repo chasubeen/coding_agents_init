@@ -83,4 +83,4 @@ PR 본문에는 변경 요약 + 검증 결과(/verify, /cross-check)를 포함.
 - feature branch 작업 권장 — main/master에 직접 커밋하려 하면 브랜치 분리를 제안.
 - 커밋은 의미 단위로 작게. 거대한 한 방 커밋 지양.
 - 커밋 메시지는 사용자 승인 후 실행.
-- `feature_list.json`/`claude-progress.md`를 갱신했다면 같은 흐름에서 함께 커밋.
+- `harness/feature_list.json`/`harness/claude-progress.md`를 갱신했다면 같은 흐름에서 함께 커밋.

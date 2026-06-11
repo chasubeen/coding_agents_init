@@ -30,7 +30,7 @@
 
 ## 참조 파일
 
-- `plan.md` — 전체 계획
+- `harness/plan.md` — 전체 계획
 - `tasks/todo.md` — 현재 태스크 상태
-- `feature_list.json` — 기능 추적 (해당 시)
-- `outputs/` — 산출물 폴더
+- `harness/feature_list.json` — 기능 추적 (해당 시)
+- `harness/outputs/` — 산출물 폴더

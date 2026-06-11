@@ -26,4 +26,4 @@ Focus: 행동하기 전에 이해하기
 발견 사항 먼저, 권고사항은 그 다음
 
 ## 활성화
-`이 세션은 research 모드로 진행합니다` 또는 contexts/research.md를 참조하세요.
+`이 세션은 research 모드로 진행합니다` 또는 harness/contexts/research.md를 참조하세요.

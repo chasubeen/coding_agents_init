@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# init.sh — 프로젝트 부트스트랩 (Harness Engineering 최소 필수 팩)
+# harness/init.sh — 프로젝트 부트스트랩 (Harness Engineering 최소 필수 팩)
 # 참고: https://walkinglabs.github.io/learn-harness-engineering/ko/
 #
 # "초기화는 별도의 단계여야 한다." 매 세션 시작 시 또는 새 환경에서 이 스크립트를 돌려
@@ -16,7 +16,7 @@ START_CMD="echo '(편집) 예: python main.py / npm run dev'"
 set -uo pipefail
 
 echo "════════════════════════════════════════"
-echo " Project Bootstrap (init.sh)"
+echo " Project Bootstrap (harness/init.sh)"
 echo "════════════════════════════════════════"
 
 # 1. 위치 확인
@@ -37,6 +37,6 @@ if eval "$VERIFY_CMD"; then
 else
     echo ""
     echo "❌ Baseline FAILED. 다른 작업 전에 검증부터 통과시키세요."
-    echo "   (claude-progress.md의 'Current blocker'에 기록할 것)"
+    echo "   (harness/claude-progress.md의 'Current blocker'에 기록할 것)"
     exit 1
 fi

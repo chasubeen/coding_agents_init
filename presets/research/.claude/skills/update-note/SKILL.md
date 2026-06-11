@@ -23,7 +23,7 @@ allowed-tools:
 1. 기본 실행 경로:
 
    ```bash
-   python tools/skill_graph_tool.py create <category> "<short-title>" --link
+   python harness/tools/skill_graph_tool.py create <category> "<short-title>" --link
    ```
 
 2. 유틸리티가 수행하는 일:
@@ -38,8 +38,8 @@ allowed-tools:
 노트를 수동 수정한 뒤 카탈로그와 링크를 다시 맞추려면 아래 명령을 사용합니다.
 
 ```bash
-python tools/skill_graph_tool.py sync
-python tools/skill_graph_tool.py sync skill_graph/ideas/YYYY-MM-DD_name.md
+python harness/tools/skill_graph_tool.py sync
+python harness/tools/skill_graph_tool.py sync skill_graph/ideas/YYYY-MM-DD_name.md
 ```
 
 ## 규칙

@@ -88,39 +88,39 @@ Testing:  Data → Features → [Core Method] → Scoring → Metrics
 
 연구 프로젝트에서 Claude의 행동을 결정하는 문맥 조합:
 - **CLAUDE.md** — 연구 원칙, 실험 프로세스, 워크플로우 규칙
-- **contexts/** — 세션 모드별 행동 지침
-- **templates/** — 산출물·거버넌스 템플릿
-- **hooks/** — 자동 실행 품질 관리
+- **harness/contexts/** — 세션 모드별 행동 지침
+- **harness/templates/** — 산출물·거버넌스 템플릿
+- **harness/hooks/** — 자동 실행 품질 관리
 
 ### Cowork File Structure
 ```
 project/
-├── plan.md          # 실험/구현 계획
-├── handoff.md       # 인수인계 상태
-├── outputs/         # 산출물 (논문 figure, 실험 결과 등)
-└── decision-log.md  # 방법론 결정 기록
+├── harness/plan.md          # 실험/구현 계획
+├── harness/handoff.md       # 인수인계 상태
+├── harness/outputs/         # 산출물 (논문 figure, 실험 결과 등)
+└── harness/decision-log.md  # 방법론 결정 기록
 ```
 
 ---
 
 ## Agents
 
-프로젝트에서 활용 가능한 전문 에이전트. `agents/` 디렉토리에 정의.
+프로젝트에서 활용 가능한 전문 에이전트. `harness/agents/` 디렉토리에 정의.
 
 | 에이전트 | 모델 | 용도 | 활성화 시점 |
 |---------|------|------|-----------|
 | planner | opus | 실험/구현 계획 수립, 제약·범위 정의 | 3단계+ 작업, 방법론 설계 |
-| builder | sonnet | plan.md 기반 구현, 변경 기록 | planner 계획 확정 후 |
+| builder | sonnet | harness/plan.md 기반 구현, 변경 기록 | planner 계획 확정 후 |
 | reviewer | sonnet | 결과물 검증, 판별 | builder 작업 완료 후 |
 | code-reviewer | sonnet | 코드 품질/보안 리뷰 | 코드 변경 후 |
 
 에이전트 호출: Subagent Strategy에 따라 서브에이전트로 실행하거나 참조 문서로 활용.
 
 ### Planner / Builder / Reviewer 프로토콜
-1. **planner** → `plan.md` 작성 (실험 설계, 가설, 성공 기준)
-2. **builder** → `plan.md` 기준 구현, `implementation-notes.md` 기록
-3. **reviewer** → `review-findings.md`에 실험 결과 검증
-4. **human** → `decision-log.md`에 방법론 결정
+1. **planner** → `harness/plan.md` 작성 (실험 설계, 가설, 성공 기준)
+2. **builder** → `harness/plan.md` 기준 구현, `harness/implementation-notes.md` 기록
+3. **reviewer** → `harness/review-findings.md`에 실험 결과 검증
+4. **human** → `harness/decision-log.md`에 방법론 결정
 
 ## Codex 교차검증 (보조 에이전트) ★
 
@@ -137,15 +137,15 @@ project/
 
 ## Context Modes
 
-세션 중 작업 모드 전환. `contexts/` 디렉토리의 모드 파일 참조.
+세션 중 작업 모드 전환. `harness/contexts/` 디렉토리의 모드 파일 참조.
 
 | 모드 | 파일 | 포커스 |
 |------|------|--------|
-| dev | `contexts/dev.md` | 구현 집중 — 코드 먼저, 설명 후 |
-| research | `contexts/research.md` | 탐색 집중 — 이해 먼저, 코드 후 |
-| review | `contexts/review.md` | 리뷰 집중 — 품질, 보안, 유지보수성 |
-| cowork | `contexts/cowork.md` | 파일 기반 협업 — plan.md/handoff.md/outputs/ |
-| autoresearch | `contexts/autoresearch.md` | 자율 실험 루프 — program.md 기반 무한 반복 |
+| dev | `harness/contexts/dev.md` | 구현 집중 — 코드 먼저, 설명 후 |
+| research | `harness/contexts/research.md` | 탐색 집중 — 이해 먼저, 코드 후 |
+| review | `harness/contexts/review.md` | 리뷰 집중 — 품질, 보안, 유지보수성 |
+| cowork | `harness/contexts/cowork.md` | 파일 기반 협업 — harness/plan.md/handoff.md/outputs/ |
+| autoresearch | `harness/contexts/autoresearch.md` | 자율 실험 루프 — harness/program.md 기반 무한 반복 |
 
 활성화: "이 세션은 [모드] 모드로 진행합니다" 또는 해당 파일 참조 요청.
 
@@ -155,7 +155,7 @@ project/
 - **autoresearch** = 탐색 단계 (빠른 반복 ~5분/실험, 넓은 범위)
 - **6단계 프로세스** = 검증 단계 (깊은 분석, 논문 기여도 판단)
 
-`program.md`에 연구 목표, 수정 가능 파일, 판정 기준을 정의하면 에이전트가 자율적으로 실험을 반복합니다.
+`harness/program.md`에 연구 목표, 수정 가능 파일, 판정 기준을 정의하면 에이전트가 자율적으로 실험을 반복합니다.
 
 ## Hooks
 

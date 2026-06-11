@@ -34,7 +34,7 @@ command -v codex >/dev/null 2>&1 && echo "codex OK: $(codex --version 2>/dev/nul
 | (없음) / `diff` | 아직 커밋 안 된 모든 변경 | `git diff HEAD` |
 | `staged` | 스테이징된 변경만 | `git diff --cached` |
 | `<파일경로>` | 특정 파일/디렉토리 | `git diff HEAD -- <경로>` |
-| `plan` | 코드가 아니라 **계획·설계** 검토 | `plan.md` 또는 직전 제안 내용 |
+| `plan` | 코드가 아니라 **계획·설계** 검토 | `harness/plan.md` 또는 직전 제안 내용 |
 | `<자유 설명>` | 설명된 주제에 대한 검토 | 관련 파일을 Read로 수집 |
 
 먼저 범위에 해당하는 변경/계획을 수집하고, 비어 있으면 사용자에게 "검토할 변경이 없습니다"라고 알린다.

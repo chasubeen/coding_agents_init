@@ -20,4 +20,4 @@ Focus: 코드 작성, 빌드, 기능 구현
 - Grep, Glob → 코드 검색
 
 ## 활성화
-`이 세션은 dev 모드로 진행합니다` 또는 contexts/dev.md를 참조하세요.
+`이 세션은 dev 모드로 진행합니다` 또는 harness/contexts/dev.md를 참조하세요.

@@ -44,7 +44,7 @@ if |overlap| >= 2 → 관련 노트로 판정
 1. 기본 실행 경로:
 
    ```bash
-   python tools/skill_graph_tool.py link [target-file]
+   python harness/tools/skill_graph_tool.py link [target-file]
    ```
 
 2. 유틸리티가 수행하는 일:
@@ -59,8 +59,8 @@ if |overlap| >= 2 → 관련 노트로 판정
 연결 후 정합성 검사는 아래 명령으로 수행합니다.
 
 ```bash
-python tools/skill_graph_tool.py lint
-python tools/skill_graph_tool.py lint skill_graph/ideas/YYYY-MM-DD_name.md
+python harness/tools/skill_graph_tool.py lint
+python harness/tools/skill_graph_tool.py lint skill_graph/ideas/YYYY-MM-DD_name.md
 ```
 
 ## sync
@@ -68,8 +68,8 @@ python tools/skill_graph_tool.py lint skill_graph/ideas/YYYY-MM-DD_name.md
 수동 편집으로 인한 drift를 복구하려면 아래 명령을 사용합니다.
 
 ```bash
-python tools/skill_graph_tool.py sync
-python tools/skill_graph_tool.py sync skill_graph/ideas/YYYY-MM-DD_name.md
+python harness/tools/skill_graph_tool.py sync
+python harness/tools/skill_graph_tool.py sync skill_graph/ideas/YYYY-MM-DD_name.md
 ```
 
 ## 규칙

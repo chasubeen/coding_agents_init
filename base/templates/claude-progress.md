@@ -12,7 +12,7 @@
 - **Repository root**: <프로젝트 절대 경로>
 - **Standard startup path**: <실행 명령, 예: python main.py / npm run dev>
 - **Standard verification path**: <검증 명령, 예: pytest -q / npm test>
-- **Highest priority unfinished feature**: <feature_list.json의 다음 작업 id/제목>
+- **Highest priority unfinished feature**: <harness/feature_list.json의 다음 작업 id/제목>
 - **Current blocker**: <막혀 있는 항목, 없으면 "none">
 
 ---

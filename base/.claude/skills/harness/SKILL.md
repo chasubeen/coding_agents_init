@@ -18,11 +18,11 @@ argument-hint: "[audit | init | improve]"
 
 | # | 서브시스템 | 핵심 질문 | 주요 산출물 |
 |---|-----------|-----------|------------|
-| 1 | **Instructions (지침)** | 에이전트가 시작 시 무엇을 읽는가? 완료의 정의가 있는가? | `CLAUDE.md`, `AGENTS.md`, `contexts/` |
-| 2 | **State (상태)** | 세션 간 진행/결정이 어디에 남는가? | `claude-progress.md`, `MEMORY.md`, `skill_graph/` |
-| 3 | **Verification (검증)** | 완료를 증거로 증명하는가? | `init.sh`(VERIFY), `/verify`, `feature_list.json`의 evidence |
-| 4 | **Scope (범위)** | 한 번에 한 기능만? 범위 이탈을 막는가? | `feature_list.json`(in_progress 1개), `plan.md` |
-| 5 | **Session lifecycle (세션 라이프사이클)** | 초기화·인계·클린 종료가 절차화됐는가? | `init.sh`, `handoff.md`, `clean-state-checklist.md` |
+| 1 | **Instructions (지침)** | 에이전트가 시작 시 무엇을 읽는가? 완료의 정의가 있는가? | `CLAUDE.md`, `AGENTS.md`, `harness/contexts/` |
+| 2 | **State (상태)** | 세션 간 진행/결정이 어디에 남는가? | `harness/claude-progress.md`, `MEMORY.md`, `skill_graph/` |
+| 3 | **Verification (검증)** | 완료를 증거로 증명하는가? | `harness/init.sh`(VERIFY), `/verify`, `harness/feature_list.json`의 evidence |
+| 4 | **Scope (범위)** | 한 번에 한 기능만? 범위 이탈을 막는가? | `harness/feature_list.json`(in_progress 1개), `harness/plan.md` |
+| 5 | **Session lifecycle (세션 라이프사이클)** | 초기화·인계·클린 종료가 절차화됐는가? | `harness/init.sh`, `harness/handoff.md`, `clean-state-checklist.md` |
 
 ---
 
@@ -53,12 +53,12 @@ HARNESS AUDIT
 
 최소 필수 팩을 갖춘다 (없는 것만 생성, 기존 파일 보존):
 
-- `init.sh` — `templates/init.sh` 기반. INSTALL/VERIFY/START를 프로젝트에 맞게 채울 것
-- `claude-progress.md` — `templates/claude-progress.md` 기반. "현재 검증된 상태"를 실제 값으로 채움
-- `feature_list.json` — `templates/feature_list.json` 기반. 첫 기능들을 등록
+- `harness/init.sh` — `harness/templates/init.sh` 기반. INSTALL/VERIFY/START를 프로젝트에 맞게 채울 것
+- `harness/claude-progress.md` — `harness/templates/claude-progress.md` 기반. "현재 검증된 상태"를 실제 값으로 채움
+- `harness/feature_list.json` — `harness/templates/feature_list.json` 기반. 첫 기능들을 등록
 - `CLAUDE.md` / `AGENTS.md` — 없으면 생성, 있으면 완료의 정의·시작 워크플로우 보강
 
-생성 후 `bash init.sh`로 기준선(실행·검증 가능)을 실제로 확인한다. 실패하면 기준선부터 고친다.
+생성 후 `bash harness/init.sh`로 기준선(실행·검증 가능)을 실제로 확인한다. 실패하면 기준선부터 고친다.
 
 ## 모드: `improve`
 
@@ -70,12 +70,12 @@ HARNESS AUDIT
 
 | 패턴 | 이 템플릿에서의 위치 |
 |------|---------------------|
-| Memory Persistence | `MEMORY.md`, `claude-progress.md` |
+| Memory Persistence | `MEMORY.md`, `harness/claude-progress.md` |
 | Skill Runtime | `.claude/skills/` |
-| Context Engineering (예산·JIT 로딩) | `CLAUDE.md` Context Engineering, `contexts/` |
+| Context Engineering (예산·JIT 로딩) | `CLAUDE.md` Context Engineering, `harness/contexts/` |
 | Tool Registry (안전성·동시성) | `.claude/settings.local.json`(권한), `.locks/`(dev) |
 | Multi-Agent Coordination | `/cross-check`(Codex 교차검증), `/orchestrate`(병렬) |
-| Lifecycle & Bootstrap | `init.sh`, `hooks/`, `handoff.md` |
+| Lifecycle & Bootstrap | `harness/init.sh`, `harness/hooks/`, `harness/handoff.md` |
 | Gotchas (비자명 실패) | `tasks/lessons.md`, `skill_graph/analysis/_lessons.md` |
 
 ## 규칙

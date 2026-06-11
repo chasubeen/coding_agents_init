@@ -22,4 +22,4 @@ Focus: 품질, 보안, 유지보수성
 파일별로 그룹화, 심각도 순으로 정렬
 
 ## 활성화
-`이 세션은 review 모드로 진행합니다` 또는 contexts/review.md를 참조하세요.
+`이 세션은 review 모드로 진행합니다` 또는 harness/contexts/review.md를 참조하세요.

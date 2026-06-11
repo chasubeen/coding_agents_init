@@ -21,7 +21,7 @@ argument-hint: "[development requirement description]"
 ### 1-1. 세션 생성
 
 ```bash
-python -m orchestrator init "$ARGUMENTS"
+python -m harness.orchestrator init "$ARGUMENTS"
 ```
 
 출력에서 세션 경로를 기억한다. 이후 모든 명령에서 이 경로를 `<session>`으로 사용한다.
@@ -43,7 +43,7 @@ python -m orchestrator init "$ARGUMENTS"
 - 의존성이 있는 작업은 deps로 표시하여 순차 실행
 - 작업당 50-150줄 범위가 적정
 
-plan.md 파일을 Write 도구로 직접 작성한다:
+harness/plan.md 파일을 Write 도구로 직접 작성한다:
 ```
 <session>/plan.md
 ```
@@ -53,7 +53,7 @@ plan.md 파일을 Write 도구로 직접 작성한다:
 각 작업을 에이전트에 할당한다. 에이전트 ID는 `agent-01`, `agent-02`, ... 형식.
 
 ```bash
-python -m orchestrator add-task <session> agent-01 \
+python -m harness.orchestrator add-task <session> agent-01 \
     --title "작업 제목" \
     --desc "상세 설명. 구현해야 할 내용, 참고할 기존 코드, 기대 결과를 명확히 기술." \
     --files "path/to/file1.py,path/to/file2.py" \
@@ -74,7 +74,7 @@ python -m orchestrator add-task <session> agent-01 \
 ## Phase 3: Dispatch
 
 ```bash
-python -m orchestrator dispatch <session>
+python -m harness.orchestrator dispatch <session>
 ```
 
 이 명령은 모든 pending 에이전트를 동시에 실행한다. 각 에이전트는:
@@ -87,7 +87,7 @@ python -m orchestrator dispatch <session>
 에이전트 실행 후 주기적으로 상태를 확인한다:
 
 ```bash
-python -m orchestrator status <session>
+python -m harness.orchestrator status <session>
 ```
 
 상태별 대응:
@@ -117,14 +117,14 @@ git diff main...orch/agent-01
 
 문제 발견 시:
 - task.md의 Notes 섹션에 수정 지시 추가 (Edit 도구)
-- 해당 에이전트만 재dispatch: `python -m orchestrator dispatch <session> agent-01`
+- 해당 에이전트만 재dispatch: `python -m harness.orchestrator dispatch <session> agent-01`
 
 ## Phase 6: Merge
 
 모든 에이전트가 승인되면 브랜치를 병합한다:
 
 ```bash
-python -m orchestrator merge <session> --cleanup
+python -m harness.orchestrator merge <session> --cleanup
 ```
 
 충돌 발생 시:
@@ -158,9 +158,9 @@ python -m orchestrator merge <session> --cleanup
 
 ```
 .orchestrator/sessions/{session_id}/
-├── plan.md                    # [Opus -> All] Master plan
+├── harness/plan.md                    # [Opus -> All] Master plan
 ├── meta.md                    # Session metadata
-├── agents/
+├── harness/agents/
 │   └── {agent_id}/
 │       ├── task.md            # [Opus -> Codex] Task assignment
 │       ├── instruction.md     # [Opus -> Codex] System instructions

@@ -63,6 +63,9 @@ fi
 
 # 대상 디렉터리 생성 (없으면)
 mkdir -p "$TARGET"
+# 하네스 스캐폴딩은 harness/ 한 곳에 모은다 (루트에는 CLAUDE.md·AGENTS.md·.claude·.codex와
+# 연구 코드·skill_graph·tasks만 남긴다)
+mkdir -p "$TARGET/harness"
 
 # ─── Copy base files ───────────────────────────────────────
 
@@ -96,11 +99,13 @@ fi
 chmod +x "$TARGET/.claude/statusline.sh" 2>/dev/null || true
 
 # hooks/ — 자동 알림/가드 스크립트. 복사 후 실행권한 부여
-cp -r "$SOURCE_DIR/base/hooks" "$TARGET/hooks"
-chmod +x "$TARGET/hooks/"*.sh 2>/dev/null || true
+cp -r "$SOURCE_DIR/base/hooks" "$TARGET/harness/hooks"
+chmod +x "$TARGET/harness/hooks/"*.sh 2>/dev/null || true
 
-# orchestrator/ module (multi-agent coordination)
-cp -r "$SOURCE_DIR/base/orchestrator" "$TARGET/orchestrator"
+# orchestrator/ module (multi-agent coordination) — harness/ 아래 서브패키지로
+cp -r "$SOURCE_DIR/base/orchestrator" "$TARGET/harness/orchestrator"
+# harness/를 패키지로 만들어 `python -m harness.orchestrator`가 동작하게 한다
+touch "$TARGET/harness/__init__.py"
 
 # AGENTS.md (Codex agent guidance)
 cp "$SOURCE_DIR/base/AGENTS.md" "$TARGET/AGENTS.md"
@@ -111,19 +116,19 @@ if [ -d "$SOURCE_DIR/base/.codex" ]; then
 fi
 
 # contexts/ directory (session mode files)
-cp -r "$SOURCE_DIR/base/contexts" "$TARGET/contexts"
+cp -r "$SOURCE_DIR/base/contexts" "$TARGET/harness/contexts"
 
 # templates/ directory (handoff, governance, decision-log, etc.)
-cp -r "$SOURCE_DIR/base/templates" "$TARGET/templates"
+cp -r "$SOURCE_DIR/base/templates" "$TARGET/harness/templates"
 
 if [ -d "$SOURCE_DIR/base/tools" ]; then
-    cp -r "$SOURCE_DIR/base/tools" "$TARGET/tools"
+    cp -r "$SOURCE_DIR/base/tools" "$TARGET/harness/tools"
 fi
 
 # agents/ directory (base first, then preset overlay)
-cp -r "$SOURCE_DIR/base/agents" "$TARGET/agents"
+cp -r "$SOURCE_DIR/base/agents" "$TARGET/harness/agents"
 if [ -d "$SOURCE_DIR/presets/$PRESET/agents" ]; then
-    cp -r "$SOURCE_DIR/presets/$PRESET/agents/"* "$TARGET/agents/" 2>/dev/null || true
+    cp -r "$SOURCE_DIR/presets/$PRESET/agents/"* "$TARGET/harness/agents/" 2>/dev/null || true
 fi
 
 # .gitignore (if template exists)
@@ -157,7 +162,7 @@ else
 fi
 
 # Copy MEMORY_TEMPLATE.md into the project (for reference)
-cp "$MEMORY_TEMPLATE" "$TARGET/MEMORY_TEMPLATE.md"
+cp "$MEMORY_TEMPLATE" "$TARGET/harness/MEMORY_TEMPLATE.md"
 
 # Also initialize actual memory location if it doesn't exist
 if [ ! -f "$MEMORY_DIR/MEMORY.md" ]; then
@@ -262,8 +267,8 @@ esac
 echo -e "${GREEN}[5/7]${NC} Setting up Cowork + Harness minimum pack..."
 
 # Cowork file structure (plan.md, handoff.md, outputs/)
-if [ ! -f "$TARGET/plan.md" ]; then
-    cat > "$TARGET/plan.md" << 'EOF'
+if [ ! -f "$TARGET/harness/plan.md" ]; then
+    cat > "$TARGET/harness/plan.md" << 'EOF'
 # Plan
 
 <!-- 현재 작업 계획. 제약, 할 일, 바지 않을 입출력을 명시. -->
@@ -285,32 +290,32 @@ if [ ! -f "$TARGET/plan.md" ]; then
 
 -
 EOF
-    echo -e "  ${GREEN}Created:${NC} plan.md"
+    echo -e "  ${GREEN}Created:${NC} harness/plan.md"
 fi
 
-if [ ! -f "$TARGET/handoff.md" ]; then
-    cp "$SOURCE_DIR/base/templates/handoff.md" "$TARGET/handoff.md"
-    echo -e "  ${GREEN}Created:${NC} handoff.md"
+if [ ! -f "$TARGET/harness/handoff.md" ]; then
+    cp "$SOURCE_DIR/base/templates/handoff.md" "$TARGET/harness/handoff.md"
+    echo -e "  ${GREEN}Created:${NC} harness/handoff.md"
 fi
 
 # Harness Engineering 최소 필수 팩 (init.sh, claude-progress.md, feature_list.json)
 # 참고: https://walkinglabs.github.io/learn-harness-engineering/ko/
-if [ ! -f "$TARGET/init.sh" ]; then
-    cp "$SOURCE_DIR/base/templates/init.sh" "$TARGET/init.sh"
-    chmod +x "$TARGET/init.sh"
-    echo -e "  ${GREEN}Created:${NC} init.sh (INSTALL/VERIFY/START 변수를 편집하세요)"
+if [ ! -f "$TARGET/harness/init.sh" ]; then
+    cp "$SOURCE_DIR/base/templates/init.sh" "$TARGET/harness/init.sh"
+    chmod +x "$TARGET/harness/init.sh"
+    echo -e "  ${GREEN}Created:${NC} harness/init.sh (INSTALL/VERIFY/START 변수를 편집하세요)"
 fi
-if [ ! -f "$TARGET/claude-progress.md" ]; then
-    cp "$SOURCE_DIR/base/templates/claude-progress.md" "$TARGET/claude-progress.md"
-    echo -e "  ${GREEN}Created:${NC} claude-progress.md"
+if [ ! -f "$TARGET/harness/claude-progress.md" ]; then
+    cp "$SOURCE_DIR/base/templates/claude-progress.md" "$TARGET/harness/claude-progress.md"
+    echo -e "  ${GREEN}Created:${NC} harness/claude-progress.md"
 fi
-if [ ! -f "$TARGET/feature_list.json" ]; then
-    cp "$SOURCE_DIR/base/templates/feature_list.json" "$TARGET/feature_list.json"
-    echo -e "  ${GREEN}Created:${NC} feature_list.json"
+if [ ! -f "$TARGET/harness/feature_list.json" ]; then
+    cp "$SOURCE_DIR/base/templates/feature_list.json" "$TARGET/harness/feature_list.json"
+    echo -e "  ${GREEN}Created:${NC} harness/feature_list.json"
 fi
 
-mkdir -p "$TARGET/outputs"
-touch "$TARGET/outputs/.gitkeep"
+mkdir -p "$TARGET/harness/outputs"
+touch "$TARGET/harness/outputs/.gitkeep"
 
 echo -e "${GREEN}[6/7]${NC} Installing Claude Code skills & agents..."
 
@@ -325,10 +330,10 @@ else
     echo -e "  ${YELLOW}No skills found for this preset${NC}"
 fi
 
-if [ -d "$TARGET/agents" ]; then
-    AGENT_COUNT=$(find "$TARGET/agents" -name '*.md' | wc -l)
+if [ -d "$TARGET/harness/agents" ]; then
+    AGENT_COUNT=$(find "$TARGET/harness/agents" -name '*.md' | wc -l)
     echo -e "  ${GREEN}Installed ${AGENT_COUNT} agent definitions:${NC}"
-    for agent_file in "$TARGET/agents"/*.md; do
+    for agent_file in "$TARGET/harness/agents"/*.md; do
         agent_name=$(basename "$agent_file" .md)
         echo -e "    ${YELLOW}@${agent_name}${NC}"
     done
@@ -337,9 +342,9 @@ fi
 echo -e "  ${GREEN}Installed 5 context modes:${NC}"
 echo -e "    ${YELLOW}dev${NC}, ${YELLOW}research${NC}, ${YELLOW}review${NC}, ${YELLOW}cowork${NC}, ${YELLOW}autoresearch${NC}"
 
-HOOK_COUNT=$(find "$TARGET/hooks" -name '*.sh' 2>/dev/null | wc -l)
+HOOK_COUNT=$(find "$TARGET/harness/hooks" -name '*.sh' 2>/dev/null | wc -l)
 echo -e "  ${GREEN}Installed ${HOOK_COUNT} hooks:${NC}"
-for hook_file in "$TARGET/hooks"/*.sh; do
+for hook_file in "$TARGET/harness/hooks"/*.sh; do
     hook_name=$(basename "$hook_file" .sh)
     echo -e "    ${YELLOW}${hook_name}${NC}"
 done
@@ -373,16 +378,16 @@ fi
 echo ""
 
 echo -e "Next steps:"
-echo -e "  1. ${YELLOW}Edit init.sh${NC} — INSTALL/VERIFY/START 명령 채우고 ${YELLOW}bash init.sh${NC}로 기준선 확인"
+echo -e "  1. ${YELLOW}Edit harness/init.sh${NC} — INSTALL/VERIFY/START 명령 채우고 ${YELLOW}bash harness/init.sh${NC}로 기준선 확인"
 echo -e "  2. ${YELLOW}Edit CLAUDE.md${NC} — Fill in project-specific sections"
 echo -e "  3. ${YELLOW}Edit MEMORY.md${NC} — at $MEMORY_DIR/MEMORY.md"
 echo -e "  4. ${YELLOW}Start Claude Code${NC} in this directory"
 echo -e "  5. ${YELLOW}Try slash commands${NC} — /todo, /verify, /cross-check, /learn, /orchestrate"
 echo -e "  6. ${YELLOW}Codex 교차검증${NC} — 비자명한 변경 후 Claude가 /cross-check 제안 (승인 시 실행)"
-echo -e "  7. ${YELLOW}진행 로그${NC} — 매 세션 claude-progress.md / feature_list.json 갱신"
-echo -e "  8. ${YELLOW}Context modes${NC} — 'research 모드로 진행' 또는 contexts/*.md 참조"
+echo -e "  7. ${YELLOW}진행 로그${NC} — 매 세션 harness/claude-progress.md / harness/feature_list.json 갱신"
+echo -e "  8. ${YELLOW}Context modes${NC} — 'research 모드로 진행' 또는 harness/contexts/*.md 참조"
 echo ""
-echo -e "  MEMORY_TEMPLATE.md is included in the project for reference."
+echo -e "  harness/MEMORY_TEMPLATE.md is included in the project for reference."
 echo -e "  The actual persistent memory is at:"
 echo -e "  ${BLUE}$MEMORY_DIR/MEMORY.md${NC}"
 echo ""

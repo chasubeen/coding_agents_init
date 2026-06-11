@@ -24,7 +24,7 @@ Claude Code와 Cowork를 실무에서 효과적으로 활용하기 위한 종합
 
 ### Cowork = 파일 기반 작업면
 - Claude 세션의 맥락을 **파일로 관리**하는 패러다임
-- `plan.md`, `handoff.md`, `outputs/` 폴더가 핵심 구조
+- `harness/plan.md`, `harness/handoff.md`, `harness/outputs/` 폴더가 핵심 구조
 - "같은 단위 하나 추가한 것"이 아니라 관리와 산출물을 한 호흡으로 묶는 작업면
 
 ---
@@ -57,7 +57,7 @@ Claude Code와 Cowork를 실무에서 효과적으로 활용하기 위한 종합
 
 ### 거버넌스는 가장 늦게 오면 안 됨
 - 작은 팀도 최소 거버넌스 세트가 필요:
-  - `CLAUDE.md`, `settings.json`, `outputs/` 폴더, `work-log.md`, `approval-log.md`
+  - `CLAUDE.md`, `settings.json`, `harness/outputs/` 폴더, `harness/work-log.md`, `harness/approval-log.md`
 - **고위험 작업은 prompt가 아니라 정책으로 막아라** (hooks, sandbox, approval gate)
 
 ### 고위험 작업 등급표
@@ -94,10 +94,10 @@ Claude Code와 Cowork를 실무에서 효과적으로 활용하기 위한 종합
 ### 감사 가능성 (Auditability) 확보
 - 최소 흔적 세트:
   1. `source/` — 원본 자료 또는 원본 링크
-  2. `outputs/` — Claude가 만든 초안과 수정본
-  3. `work-log.md` — 무엇을 언제 실행했는지
-  4. `approval-log.md` — 누가 언제 승인했는지
-  5. `handoff.md` — 남은 하찮다 다음 단계
+  2. `harness/outputs/` — Claude가 만든 초안과 수정본
+  3. `harness/work-log.md` — 무엇을 언제 실행했는지
+  4. `harness/approval-log.md` — 누가 언제 승인했는지
+  5. `harness/handoff.md` — 남은 하찮다 다음 단계
 
 ### 고위험 작업 등급별 승인 방식
 - 낮음: 자동 실행 가능
@@ -140,7 +140,7 @@ Claude Code와 Cowork를 실무에서 효과적으로 활용하기 위한 종합
 
 ### 4.6 엔지니어링
 - **핵심 스택**: CLAUDE.md > 주력 언어 LSP > code-review > test/lint hook
-- `plan.md`와 `handoff.md` 필수
+- `harness/plan.md`와 `harness/handoff.md` 필수
 - acceptance criteria를 파일로 남기고 변경의 변소 항목 확인
 - "코드를 대신 쓰는 도구"가 아니라 "변경을 관리하는 흐름을 돕는 도구"
 - 핵심: 핵심 구조 변경과 배포 판단
@@ -202,16 +202,16 @@ Claude Code와 Cowork를 실무에서 효과적으로 활용하기 위한 종합
 | 회의록 정리 | `raw-notes.md` → 감정/논쟁 분리 → `meeting-notes-template.md` |
 | PM PRD 작성 | `research-brief.md` + `open-questions.md` → PRD |
 | 마케터 콘텐츠 | `brand-voice.md` + `anti-ai-writing-style.md` → 에디토리얼 순환 체계 |
-| 주니어 개발자 | CLAUDE.md + plan.md 먼저, 좋은 방향으로 배울 때 틀리지 않게 하는 프레임 |
+| 주니어 개발자 | CLAUDE.md + harness/plan.md 먼저, 좋은 방향으로 배울 때 틀리지 않게 하는 프레임 |
 | 팀장 AI 도입 | scope별 규칙 (managed, user, project, local) + plugin marketplace |
 | 운영 담당 반복 업무 | 선별 자동화 + approval gate |
 | 교육자 | `glossary.md`, `lesson-template.md`, `quiz-template.md` |
 | 시트→발표 변환 | metric-glossary + deck-template + review-rules |
-| 원격 이어받기 | `plan.md` + `handoff.md` + `outputs/` 3파일 필수 |
-| 멀티 에이전트 충돌 | planner/builder/reviewer 역할 분리 + `decision-log.md` |
+| 원격 이어받기 | `harness/plan.md` + `harness/handoff.md` + `harness/outputs/` 3파일 필수 |
+| 멀티 에이전트 충돌 | planner/builder/reviewer 역할 분리 + `harness/decision-log.md` |
 | 비용 폭증 | 공유 파일 200줄 제한, 강한 패턴 규칙, glossary 도입 |
 | 디자인-실제 괴리 | `component-glossary.md` + `state-checklist.md` + `design-review-rules.md` |
-| 회의 메모 → 자료 변환 | `transcript.md` → `notes.md` → `outputs/` 구조 |
+| 회의 메모 → 자료 변환 | `transcript.md` → `notes.md` → `harness/outputs/` 구조 |
 | "앞으로 다 AI로 하지" | 구조와 역할 분리가 먼저, 사람이 빠지지 않는 지점 식별 |
 
 ---
@@ -219,18 +219,18 @@ Claude Code와 Cowork를 실무에서 효과적으로 활용하기 위한 종합
 ## 7. 멀티 에이전트 프로토콜
 
 ### planner / builder / reviewer 역할 분리
-- **planner**: 제약, 할 일, 바지 않을 입출력 → `plan.md`에 적는다
-- **builder**: `plan.md`만 기준으로 작업하고 변경 내용을 `implementation-notes.md`에 남김
-- **reviewer**: 결과물 + 검증 기준만 읽고 `review-findings.md`에 판별만 적는다
-- **human**: `decision-log.md`에 최종 판단한 남긴다
+- **planner**: 제약, 할 일, 바지 않을 입출력 → `harness/plan.md`에 적는다
+- **builder**: `harness/plan.md`만 기준으로 작업하고 변경 내용을 `harness/implementation-notes.md`에 남김
+- **reviewer**: 결과물 + 검증 기준만 읽고 `harness/review-findings.md`에 판별만 적는다
+- **human**: `harness/decision-log.md`에 최종 판단한 남긴다
 
 ### 최소 충돌 규약
 ```
-1. planner는 `plan.md`에 변위, 현재 기준, 제약 범위를 잡아 적는다.
-2. builder는 `plan.md`만 기준으로 작업하고 변경 내용을 `implementation-notes.md`에 남긴다.
-3. reviewer는 결과물 + 검증 기준만 읽고 `review-findings.md`에 판별만 적는다.
+1. planner는 `harness/plan.md`에 변위, 현재 기준, 제약 범위를 잡아 적는다.
+2. builder는 `harness/plan.md`만 기준으로 작업하고 변경 내용을 `harness/implementation-notes.md`에 남긴다.
+3. reviewer는 결과물 + 검증 기준만 읽고 `harness/review-findings.md`에 판별만 적는다.
 세 역할이 같은 파일을 동시에 편집하지는 않는다.
-마지막 판단은 내가 `decision-log.md`에 남긴다.
+마지막 판단은 내가 `harness/decision-log.md`에 남긴다.
 ```
 
 ---
@@ -239,7 +239,7 @@ Claude Code와 Cowork를 실무에서 효과적으로 활용하기 위한 종합
 
 1. **좋 정보와 또는 어떤식 사용을 내린다** — 책임 가능한 사람이 직접 판단하는 구조
 2. **고위험 작업은 프롬프트가 아니라 정책으로 막는다** — settings, hook, approval gate로 막기
-3. **긴 작업은 반드시 상태 파일을 남긴다** — plan.md, decision-log.md, handoff.md
+3. **긴 작업은 반드시 상태 파일을 남긴다** — harness/plan.md, harness/decision-log.md, harness/handoff.md
 4. **현재 역할은 사람이 아니라 멥을 위해 설명으로 정의한다** — skill로 정의
 5. **잘하는 사람의 감각을 될 전환에 비해 제약 줄이리고 지식을 로그로 넘겨야 한다**
 6. **모든 자동화에는 멈추는 기준이 있어야 한다** — stop rule

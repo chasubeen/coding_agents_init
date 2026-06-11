@@ -31,8 +31,8 @@ Before starting any work, verify the repository satisfies all four conditions:
 
 1. **Runnable**: standard start command succeeds (see `CLAUDE.md` Commands section)
 2. **Testable**: at least one test passes
-3. **Trackable**: `tasks/todo.md` and `handoff.md` exist and are current
-4. **Actionable**: next steps are clear from `handoff.md` or `feature_list.json`
+3. **Trackable**: `tasks/todo.md` and `harness/handoff.md` exist and are current
+4. **Actionable**: next steps are clear from `harness/handoff.md` or `harness/feature_list.json`
 
 If any condition is unmet, establish it before implementing features.
 
@@ -41,8 +41,8 @@ If any condition is unmet, establish it before implementing features.
 At the start of each meaningful task, review these files in order:
 
 1. `CLAUDE.md`
-2. `handoff.md` (or `tasks/todo.md` if handoff is absent)
-3. `feature_list.json` (if present — check which feature is `in_progress`)
+2. `harness/handoff.md` (or `tasks/todo.md` if handoff is absent)
+3. `harness/feature_list.json` (if present — check which feature is `in_progress`)
 4. `tasks/lessons.md`
 
 Treat `CLAUDE.md` as the primary project playbook unless a direct user instruction overrides it.
@@ -90,44 +90,44 @@ Do not mark work complete on intent alone. Pass all three stages in order:
 
 If a stage cannot be run, explicitly state what was and was not verified.
 
-Before closing the session, run through `templates/clean-state-checklist.md`.
+Before closing the session, run through `harness/templates/clean-state-checklist.md`.
 
 ### 4. Feature Tracking
 
-When `feature_list.json` exists:
+When `harness/feature_list.json` exists:
 
 - Only one feature may have `"status": "in_progress"` at a time (scope discipline)
 - Before marking a feature `"passing"`, all commands in its `"validation"` array must pass AND `"evidence"` must be recorded — no false `passing`
 - Use `"blocked"` (with a reason in `"notes"`) when stuck; never silently abandon
-- Update `feature_list.json` at the end of each session
+- Update `harness/feature_list.json` at the end of each session
 
 ## Agents and Contexts
 
-### Agents (`agents/` directory)
+### Agents (`harness/agents/` directory)
 | Agent | Model | Purpose |
 |-------|-------|---------|
 | planner | opus | Implementation planning, scope & constraints |
-| builder | sonnet | Execute plan.md, record changes in implementation-notes.md |
-| reviewer | sonnet | Validate results against success criteria, write review-findings.md |
+| builder | sonnet | Execute harness/plan.md, record changes in harness/implementation-notes.md |
+| reviewer | sonnet | Validate results against success criteria, write harness/review-findings.md |
 | code-reviewer | sonnet | Code quality/security review |
 
 ### Planner / Builder / Reviewer Protocol
 
 Multi-agent work uses role separation to prevent conflicts:
 
-1. **planner** writes scope, constraints, and success criteria in `plan.md`
-2. **builder** works only from `plan.md`, records changes in `implementation-notes.md`
-3. **reviewer** reads results + criteria only, writes verdicts in `review-findings.md`
+1. **planner** writes scope, constraints, and success criteria in `harness/plan.md`
+2. **builder** works only from `harness/plan.md`, records changes in `harness/implementation-notes.md`
+3. **reviewer** reads results + criteria only, writes verdicts in `harness/review-findings.md`
 4. No two roles edit the same file simultaneously
-5. Human records final decisions in `decision-log.md`
+5. Human records final decisions in `harness/decision-log.md`
 
-### Context Modes (`contexts/` directory)
+### Context Modes (`harness/contexts/` directory)
 | Mode | File | Focus |
 |------|------|-------|
-| dev | `contexts/dev.md` | Implementation — code first |
-| research | `contexts/research.md` | Exploration — understand first |
-| review | `contexts/review.md` | Quality, security, maintainability |
-| cowork | `contexts/cowork.md` | File-based collaboration — plan.md/handoff.md/outputs/ |
+| dev | `harness/contexts/dev.md` | Implementation — code first |
+| research | `harness/contexts/research.md` | Exploration — understand first |
+| review | `harness/contexts/review.md` | Quality, security, maintainability |
+| cowork | `harness/contexts/cowork.md` | File-based collaboration — harness/plan.md/handoff.md/outputs/ |
 
 ## Codex Mapping For Existing Claude Skills
 
@@ -147,19 +147,19 @@ Codex cannot auto-register the local `.claude/skills/*` files as native skills, 
 
 ## Harness Templates
 
-Ready-to-use templates in `templates/`. The **minimum pack** (init.sh, claude-progress.md, feature_list.json, AGENTS.md/CLAUDE.md) follows the Harness Engineering method — see <https://walkinglabs.github.io/learn-harness-engineering/ko/>.
+Ready-to-use templates in `harness/templates/`. The **minimum pack** (harness/init.sh, harness/claude-progress.md, harness/feature_list.json, AGENTS.md/CLAUDE.md) follows the Harness Engineering method — see <https://walkinglabs.github.io/learn-harness-engineering/ko/>.
 
 | Template | Tier | Purpose |
 |----------|------|---------|
-| `init.sh` | min | Project bootstrap — INSTALL/VERIFY/START; confirm a runnable+testable baseline first |
-| `claude-progress.md` | min | Progress log — "current verified state" + per-session records; next session's entry point |
-| `feature_list.json` | min | Machine-readable feature tracker (status: not_started/in_progress/blocked/passing + evidence) |
+| `harness/init.sh` | min | Project bootstrap — INSTALL/VERIFY/START; confirm a runnable+testable baseline first |
+| `harness/claude-progress.md` | min | Progress log — "current verified state" + per-session records; next session's entry point |
+| `harness/feature_list.json` | min | Machine-readable feature tracker (status: not_started/in_progress/blocked/passing + evidence) |
 | `clean-state-checklist.md` | rec | Session-end checklist (build, tests, artifacts, state) |
-| `handoff.md` | rec | Structured session handoff (verified items, changes, issues, next actions) |
+| `harness/handoff.md` | rec | Structured session handoff (verified items, changes, issues, next actions) |
 | `evaluator-rubric.md` | rec | 6-dimension output quality rubric (Accept/Revise/Block) — also feeds `/cross-check` |
 | `quality-document.md` | opt | Codebase health over time (domain/layer grades A–D) |
-| `decision-log.md` | opt | Human-approved decision records |
-| `work-log.md` | opt | Session activity log |
+| `harness/decision-log.md` | opt | Human-approved decision records |
+| `harness/work-log.md` | opt | Session activity log |
 
 ### Definition of Done (완료의 정의)
 

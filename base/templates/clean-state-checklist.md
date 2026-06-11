@@ -25,9 +25,9 @@
 
 ## 5. 상태 기록
 
-- [ ] `handoff.md` 갱신 (검증된 항목, 변경사항, 알려진 이슈, 다음 액션)
+- [ ] `harness/handoff.md` 갱신 (검증된 항목, 변경사항, 알려진 이슈, 다음 액션)
 - [ ] `tasks/todo.md` 진행 상황 체크
-- [ ] `feature_list.json` 상태 업데이트 (해당 시)
+- [ ] `harness/feature_list.json` 상태 업데이트 (해당 시)
 
 ## 6. Git
 
