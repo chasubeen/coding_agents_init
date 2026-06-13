@@ -15,8 +15,8 @@ allowed-tools:
 
 기존 버그픽스 노트:
 
-```
-!find skill_graph/bugfix -name '*.md' ! -name '_TEMPLATE.md' 2>/dev/null | sort!
+```!
+find skill_graph/bugfix -name '*.md' ! -name '_TEMPLATE.md' 2>/dev/null | sort
 ```
 
 ## 동작

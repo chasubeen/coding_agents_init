@@ -14,8 +14,8 @@ allowed-tools:
 
 사용 가능한 카테고리와 템플릿:
 
-```
-!find skill_graph -name '_TEMPLATE.md' -o -name '.gitkeep' | grep -v .gitkeep | sort!
+```!
+find skill_graph -name '_TEMPLATE.md' -o -name '.gitkeep' | grep -v .gitkeep | sort
 ```
 
 ## 동작

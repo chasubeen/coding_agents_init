@@ -14,8 +14,8 @@ allowed-tools:
 
 현재 잠금 상태:
 
-```
-!ls .locks/*.lock 2>/dev/null || echo "(잠금 없음)"!
+```!
+ls .locks/*.lock 2>/dev/null || echo "(잠금 없음)"
 ```
 
 ## 동작

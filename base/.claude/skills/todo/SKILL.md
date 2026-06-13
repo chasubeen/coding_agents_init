@@ -12,8 +12,8 @@ allowed-tools:
 
 현재 상태:
 
-```
-!cat tasks/todo.md 2>/dev/null || echo "(tasks/todo.md 없음)"!
+```!
+cat tasks/todo.md 2>/dev/null || echo "(tasks/todo.md 없음)"
 ```
 
 ## 동작

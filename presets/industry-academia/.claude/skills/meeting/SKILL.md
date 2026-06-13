@@ -13,8 +13,8 @@ allowed-tools:
 
 최근 회의록:
 
-```
-!find skill_graph/meetings -name '*.md' ! -name '_TEMPLATE.md' 2>/dev/null | sort -r | head -5!
+```!
+find skill_graph/meetings -name '*.md' ! -name '_TEMPLATE.md' 2>/dev/null | sort -r | head -5
 ```
 
 ## 동작

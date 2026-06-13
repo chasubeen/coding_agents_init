@@ -13,8 +13,8 @@ allowed-tools:
 
 현재 체크포인트:
 
-```
-!cat .claude/checkpoints.log 2>/dev/null || echo "(체크포인트 없음)"!
+```!
+cat .claude/checkpoints.log 2>/dev/null || echo "(체크포인트 없음)"
 ```
 
 ## 동작

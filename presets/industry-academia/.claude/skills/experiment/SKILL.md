@@ -15,14 +15,14 @@ allowed-tools:
 
 이전 실험 목록:
 
-```
-!find skill_graph/experiments -name '*.md' ! -name '_TEMPLATE.md' 2>/dev/null | sort!
+```!
+find skill_graph/experiments -name '*.md' ! -name '_TEMPLATE.md' 2>/dev/null | sort
 ```
 
 관련 납품물:
 
-```
-!find skill_graph/deliverables -name '*.md' ! -name '_TEMPLATE.md' 2>/dev/null | sort!
+```!
+find skill_graph/deliverables -name '*.md' ! -name '_TEMPLATE.md' 2>/dev/null | sort
 ```
 
 ## 동작

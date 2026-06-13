@@ -13,8 +13,8 @@ allowed-tools:
 
 기존 분석 노트:
 
-```
-!find skill_graph/analysis -name '*.md' ! -name '_LESSONS_TEMPLATE.md' 2>/dev/null | sort!
+```!
+find skill_graph/analysis -name '*.md' ! -name '_LESSONS_TEMPLATE.md' 2>/dev/null | sort
 ```
 
 ## 동작

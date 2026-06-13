@@ -13,8 +13,8 @@ allowed-tools:
 
 현재 납품물 목록:
 
-```
-!find skill_graph/deliverables -name '*.md' ! -name '_TEMPLATE.md' 2>/dev/null | sort!
+```!
+find skill_graph/deliverables -name '*.md' ! -name '_TEMPLATE.md' 2>/dev/null | sort
 ```
 
 ## 동작

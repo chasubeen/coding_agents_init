@@ -13,8 +13,8 @@ allowed-tools:
 
 현재 교훈 목록:
 
-```
-!cat tasks/lessons.md 2>/dev/null || echo "(tasks/lessons.md 없음)"!
+```!
+cat tasks/lessons.md 2>/dev/null || echo "(tasks/lessons.md 없음)"
 ```
 
 ## 동작

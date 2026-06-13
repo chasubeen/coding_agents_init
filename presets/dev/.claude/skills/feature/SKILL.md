@@ -15,8 +15,8 @@ allowed-tools:
 
 기존 기능 노트:
 
-```
-!find skill_graph/features -name '*.md' ! -name '_TEMPLATE.md' 2>/dev/null | sort!
+```!
+find skill_graph/features -name '*.md' ! -name '_TEMPLATE.md' 2>/dev/null | sort
 ```
 
 ## 동작
