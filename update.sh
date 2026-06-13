@@ -127,6 +127,7 @@ if [ -d "$SOURCE_DIR/base/agents" ]; then
     [ -d "$SOURCE_DIR/presets/$PRESET/agents" ] && cp -r "$SOURCE_DIR/presets/$PRESET/agents/"* "$TARGET/harness/agents/" 2>/dev/null || true
 fi
 chmod +x "$TARGET/harness/hooks/"*.sh 2>/dev/null || true
+chmod +x "$TARGET/harness/tools/"*.sh 2>/dev/null || true
 # orchestrator 패키지 마커
 touch "$TARGET/harness/__init__.py"
 echo -e "  ${GREEN}harness/:${NC} references, contexts, templates, hooks, orchestrator, agents, tools 갱신"

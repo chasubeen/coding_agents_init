@@ -129,6 +129,7 @@ fi
 
 if [ -d "$SOURCE_DIR/base/tools" ]; then
     cp -r "$SOURCE_DIR/base/tools" "$TARGET/harness/tools"
+    chmod +x "$TARGET/harness/tools/"*.sh 2>/dev/null || true
 fi
 
 # agents/ directory (base first, then preset overlay)
@@ -291,6 +292,24 @@ if [ ! -f "$TARGET/harness/plan.md" ]; then
 ## 성공 기준
 
 -
+
+## 중단 조건 (Stop conditions)
+
+<!-- 언제 멈추고 재계획·보고할지: 같은 에러 2~3회 반복 / scope drift / 되돌리기 어려운 작업 승인 없음 / 가정 오류 -->
+-
+
+## 미지수 (Unknowns)
+
+<!-- 모르는 것은 unknown으로 명시. 추측으로 메우지 않는다 (관찰되지 않음 ≠ 없음) -->
+-
+
+## 검증 관점 (비자명한 plan일 때 점검)
+
+<!-- 점검했으면 체크. harness/references/harness-principles.md 참조 -->
+- [ ] Spec-Plan 일치
+- [ ] 재사용 (기존 코드·노트·교훈)
+- [ ] 제품/연구 목표 적합
+- [ ] 보안 적합
 
 ## 바지 않을 것
 

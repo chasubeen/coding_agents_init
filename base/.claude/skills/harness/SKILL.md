@@ -1,8 +1,8 @@
 ---
 name: harness
-description: 프로젝트의 하네스(실행 환경 설계)를 점검·부트스트랩·개선·진화시킨다. 5개 핵심 서브시스템(지침/상태/검증/범위/세션 라이프사이클)을 기준으로 평가하고 최소 필수 팩을 갖춘다. Harness Engineering 방법론 기반.
+description: 프로젝트의 하네스(실행 환경 설계)를 점검·부트스트랩·개선·진화·진단한다. 5개 핵심 서브시스템(지침/상태/검증/범위/세션 라이프사이클)을 기준으로 평가하고 최소 필수 팩을 갖춘다. Harness Engineering 방법론 기반.
 user-invocable: true
-argument-hint: "[audit | init | improve | evolve]"
+argument-hint: "[audit | init | improve | evolve | doctor]"
 ---
 
 # /harness — 하네스 점검·부트스트랩·개선
@@ -90,6 +90,29 @@ HARNESS EVOLVE — 드리프트 N건
 ```
 
 > 이것이 하네스를 "한 번 만들고 끝"이 아니라 **살아 있는 시스템**으로 만든다. 큰 마일스톤 후나 "문서가 코드랑 안 맞는다" 싶을 때 실행.
+
+## 모드: `doctor`
+
+**읽기전용 진단**(migration report). 아무것도 바꾸지 않고 하네스 구성의 드리프트/문제만 리포트한다. `evolve`(콘텐츠 드리프트)와 달리 **기계 부품 드리프트**(깨진 hook 경로, 구버전 명령, 끊긴 references 참조, 누락된 최소 팩, feature_list 규율 위반)를 잡는다.
+
+```bash
+bash harness/tools/harness_doctor.sh
+```
+
+점검 항목: 최소 팩 존재 · settings JSON 유효성 · 구버전 명령(`python -m orchestrator` → `harness.orchestrator`) · hook/statusLine 경로 실재 · 스킬→`harness/references/` 끊긴 참조 · handoff 중복 · feature_list(in_progress ≤1, 거짓 `passing`) · orchestrator 패키지 마커.
+
+FAIL이 나오면 **변경하지 말고 보고**한 뒤, 기계 부품 드리프트는 `sudo bash update.sh <preset> .`(안전 업데이트)로 정리하도록 안내한다. 사용자 콘텐츠는 건드리지 않는다.
+
+---
+
+## 고급 원칙
+
+audit/improve/evolve 시 아래 원칙을 기준으로 판정한다. 상세: `harness/references/harness-principles.md`.
+
+- **Observability** — "관찰되지 않음 ≠ 없음". 미확인은 추측하지 말고 `unknown`으로 명시. 단정엔 증거.
+- **Stop conditions** — spec/plan에 중단 조건·미지수(Unknowns)를 명시.
+- **Validation perspectives** — 비자명한 plan은 spec-plan 일치·재사용·제품적합·보안적합 관점 점검.
+- **Definition of Done** — validation 통과+증거 / 범위 준수 / 재현 / unknown 정직 표기 / 저장소만으로 인계 가능.
 
 ---
 

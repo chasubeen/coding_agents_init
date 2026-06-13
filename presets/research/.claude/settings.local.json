@@ -13,6 +13,7 @@
       "Bash(python -m harness.orchestrator clean:*)",
       "Bash(codex exec:*)",
       "Bash(codex --version)",
+      "Bash(bash harness/tools/harness_doctor.sh:*)",
       "Bash(git status:*)",
       "Bash(git diff:*)",
       "Bash(git add:*)",

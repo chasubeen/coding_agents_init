@@ -186,6 +186,7 @@ project/
 ### 4. Verification Before Done
 - **작동을 증명하지 않은 채 완료 처리 금지**
 - "시니어 엔지니어가 이 코드를 승인할 것인가?" 자문
+- **관찰되지 않음 ≠ 없음**: 미확인 정보(상태·결과)는 추측하지 말고 `unknown`으로 명시. 중단조건·검증관점 등 상세는 `harness/references/harness-principles.md`
 - 테스트 실행, 로그 확인, 정확성 시연 후 완료
 
 ### 5. Demand Elegance (Balanced)

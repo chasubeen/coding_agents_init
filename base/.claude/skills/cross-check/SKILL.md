@@ -108,5 +108,6 @@ B. Design Alternatives
 - Codex 결과를 **무비판적으로 수용하지 않는다.** Claude가 각 항목을 검증한 뒤에만 반영한다.
 - 반대로 Codex가 "문제 없음"이라 해도 Claude가 미심쩍으면 그 부분을 명시한다 (교차검증은 양방향).
 - 확정된 실제 버그는 발견 즉시 `tasks/lessons.md` 승격 후보로 기록한다 (`/learn` 연동).
+- **관찰되지 않음 ≠ 없음** — 검증 못 한 항목은 "문제 없음"이 아니라 `unknown`(미확인)으로 보고한다. 확인 못 한 코드 경로를 통과로 단정하지 않는다 (`harness/references/harness-principles.md`).
 - read-only가 기본. Codex가 파일을 직접 수정하게 하려면 사용자 명시 승인 후 `--full-auto`를 쓰되, 이는 `/orchestrate`의 영역이다.
 - `Verification Before Done`의 보조 수단 — `/verify`(정적/런타임 검증)와 함께 쓰면 사각지대가 크게 줄어든다.

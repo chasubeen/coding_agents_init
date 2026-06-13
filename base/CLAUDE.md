@@ -279,8 +279,11 @@ skill_graph/
 2. **거대 단일 지시 파일 지양** — 규칙은 CLAUDE.md(루트) + harness/contexts/ + skills/로 분산.
 3. **완료의 정의 (Definition of Done)** — validation 통과 + **증거 기록** + 범위 준수 + 재시작 후 유지 + 저장소만으로 인계 가능. 의도만으로 완료 선언 금지.
 4. **기능 목록이 기본 단위** — 작업은 `harness/feature_list.json`의 기능 단위로. 거짓 `passing` 금지.
-5. **관측 가능성 (Observability)** — 비자명한 실행은 증거(로그/지표/출력)를 남겨 진단 가능하게. 증거 위치를 `harness/claude-progress.md`·`harness/feature_list.json`의 evidence에 기록.
-6. **클린 상태로 종료** — 세션 종료 전 `clean-state-checklist.md` 실행. "나중에 정리"는 정리하지 않는 것.
+5. **관측 가능성 (Observability) — "관찰되지 않음 ≠ 없음"** — 미확인 정보는 추측으로 메우지 말고 명시적 `unknown`으로 표기한다. 단정엔 증거(로그/지표/출력)를 붙이고, 증거 위치를 `harness/claude-progress.md`·`harness/feature_list.json`의 evidence에 기록한다. "되는 것 같다"는 검증이 아니다.
+6. **중단 조건·검증 관점** — spec/plan에 중단 조건(Stop)·미지수(Unknowns)를 명시하고, 비자명한 plan은 spec-plan 일치·재사용·제품적합·보안적합 관점을 점검한다.
+7. **클린 상태로 종료** — 세션 종료 전 `clean-state-checklist.md` 실행. "나중에 정리"는 정리하지 않는 것.
+
+> 위 원칙의 상세·체크리스트: `harness/references/harness-principles.md`. 구성 드리프트 진단: `/harness doctor`.
 
 ## Governance (거버넌스)
 

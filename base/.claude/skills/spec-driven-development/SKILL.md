@@ -119,9 +119,17 @@ SPECIFY ──→ PLAN ──→ TASKS ──→ IMPLEMENT
 ## 성공 기준 (Success Criteria)
 [완료를 판단할 구체적·검증가능한 조건]
 
+## 중단 조건 (Stop Conditions)
+[언제 멈추고 재계획·보고할지. 예: 같은 에러 2~3회 반복 / scope drift / 되돌리기 어려운 작업 직전 승인 없음 / 가정이 틀림]
+
+## 미지수 (Unknowns)
+[시작 시점에 모르는 것. `unknown`으로 명시하고 해소되면 갱신. 추측으로 메우지 않는다]
+
 ## 미해결 질문 (Open Questions)
 [사람 입력이 필요한 미결 사항]
 ```
+
+> **중단 조건·미지수**는 하네스 고급 원칙이다 (`harness/references/harness-principles.md`). 미관찰 정보는 "없음"이 아니라 `unknown`으로 적는다 — "관찰되지 않음 ≠ 없음".
 
 **지시를 성공 기준으로 재구성하라.** 모호한 요구사항이 들어오면 구체적·검증가능한 조건으로 번역한다:
 
