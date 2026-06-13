@@ -1,8 +1,8 @@
 ---
 name: harness
-description: 프로젝트의 하네스(실행 환경 설계)를 점검·부트스트랩·개선한다. 5개 핵심 서브시스템(지침/상태/검증/범위/세션 라이프사이클)을 기준으로 평가하고 최소 필수 팩을 갖춘다. Harness Engineering 방법론 기반.
+description: 프로젝트의 하네스(실행 환경 설계)를 점검·부트스트랩·개선·진화시킨다. 5개 핵심 서브시스템(지침/상태/검증/범위/세션 라이프사이클)을 기준으로 평가하고 최소 필수 팩을 갖춘다. Harness Engineering 방법론 기반.
 user-invocable: true
-argument-hint: "[audit | init | improve]"
+argument-hint: "[audit | init | improve | evolve]"
 ---
 
 # /harness — 하네스 점검·부트스트랩·개선
@@ -63,6 +63,33 @@ HARNESS AUDIT
 ## 모드: `improve`
 
 `audit` 결과에서 가장 약한 1~2개 축을 골라 구체적으로 개선한다. 한 번에 전부 고치지 말고 우선순위 순으로. 각 개선 후 `audit`로 재점검.
+
+## 모드: `evolve`
+
+**초기 하네스 ↔ 실제로 진화한 프로젝트** 사이의 드리프트(delta)를 감지해, 하네스를 현실에 맞게 따라잡힌다. setup.sh가 깔아준 *초안*은 프로젝트가 자라면서 낡는다 — 이 모드가 그 격차를 메운다.
+
+1. **드리프트 감지** — 아래를 실제 코드/이력과 대조한다:
+   - `CLAUDE.md`의 Commands/Architecture/Conventions가 현재 코드와 맞는가? (빌드·테스트 명령이 바뀌지 않았나, 새 모듈/디렉토리가 문서에 없나)
+   - `harness/init.sh`의 INSTALL/VERIFY/START가 여전히 동작하는가?
+   - `harness/feature_list.json`이 실제 구현 상태와 일치하는가? (거짓 `passing`, 누락된 신규 기능)
+   - `tasks/lessons.md`에 반복 등장한 교훈이 `CLAUDE.md`/스킬/규약으로 승격됐는가? (`git log`·lessons에서 반복 패턴 탐지)
+   - 새로 굳어진 관례(네이밍, 디렉토리, 테스트 방식)가 어디에도 기록되지 않았나?
+2. **델타 제시** — 발견한 격차를 "현재 문서 vs 실제" 대조표로 보고. 추측 금지, 증거(파일·커밋) 명시.
+3. **승격·갱신 제안** — 각 델타에 대해 구체적 갱신안:
+   - 반복된 교훈 → `CLAUDE.md` 규약 또는 새 스킬로 승격 (`skill-authoring-guide.md` 참고)
+   - 낡은 Commands/Architecture → 갱신
+   - 실제 아키텍처 패턴 → `CLAUDE.md` 반영
+4. **적용** — 사용자 승인 후 갱신. 큰 변경은 `harness/decision-log.md`에 기록.
+
+출력:
+```
+HARNESS EVOLVE — 드리프트 N건
+1. [Instructions] CLAUDE.md Commands 'npm test' → 실제 'pytest -q' (evidence: ...)  → 갱신 제안
+2. [State] lessons.md에 "시드 고정" 3회 반복 → CLAUDE.md 규약 승격 제안
+...
+```
+
+> 이것이 하네스를 "한 번 만들고 끝"이 아니라 **살아 있는 시스템**으로 만든다. 큰 마일스톤 후나 "문서가 코드랑 안 맞는다" 싶을 때 실행.
 
 ---
 

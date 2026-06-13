@@ -121,6 +121,12 @@ cp -r "$SOURCE_DIR/base/contexts" "$TARGET/harness/contexts"
 # templates/ directory (handoff, governance, decision-log, etc.)
 cp -r "$SOURCE_DIR/base/templates" "$TARGET/harness/templates"
 
+# references/ directory (security/testing/code-review/performance/orchestration 체크리스트)
+# 스킬들이 harness/references/<file> 경로로 참조한다
+if [ -d "$SOURCE_DIR/base/references" ]; then
+    cp -r "$SOURCE_DIR/base/references" "$TARGET/harness/references"
+fi
+
 if [ -d "$SOURCE_DIR/base/tools" ]; then
     cp -r "$SOURCE_DIR/base/tools" "$TARGET/harness/tools"
 fi

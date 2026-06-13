@@ -144,6 +144,31 @@ Codex cannot auto-register the local `.claude/skills/*` files as native skills, 
 - `.claude/skills/cross-check/SKILL.md`: how Claude invokes you (Codex) for read-only cross-check review
 - `.claude/skills/orchestrate/SKILL.md`: how Claude dispatches you (Codex) as a parallel worker
 - `.claude/skills/harness/SKILL.md`: audit/bootstrap/improve the project harness (5 subsystems)
+- `.claude/skills/spec-driven-development/SKILL.md`: write a gated spec before coding
+- `.claude/skills/test-driven-development/SKILL.md`: Red-Green-Refactor, test pyramid
+- `.claude/skills/debugging-and-error-recovery/SKILL.md`: 5-step triage (reproduce→guard)
+- `.claude/skills/security-and-hardening/SKILL.md`: OWASP/LLM hardening (+ `harness/references/security-checklist.md`)
+- `.claude/skills/code-review-and-quality/SKILL.md`: 5-axis review with severity labels
+- `.claude/skills/doubt-driven-development/SKILL.md`: adversarial self-verification; escalates to `/cross-check`
+
+## Intent → Skill Mapping (command-less agents)
+
+This file is the universal entry point. Agents without a slash-command system (Codex, opencode, plain LLMs) map the user's intent to the matching skill and follow that `SKILL.md` as the process. Skills are plain Markdown — portable across agents.
+
+| Intent / Lifecycle phase | Skill (read its SKILL.md) |
+|--------------------------|---------------------------|
+| 새 프로젝트·기능 시작, 요구 모호 (DEFINE/SPEC) | `spec-driven-development` |
+| 작업 분해·계획 (PLAN) | `todo`, `harness` |
+| 구현 (BUILD) | `test-driven-development` |
+| 버그·에러·실패 테스트 (DEBUG) | `debugging-and-error-recovery` |
+| 비자명한 결정을 의심·검증 (VERIFY) | `doubt-driven-development` → 필요 시 `cross-check`(Codex) |
+| 보안 민감 변경 (HARDEN) | `security-and-hardening` + `harness/references/security-checklist.md` |
+| 머지·PR 전 리뷰 (REVIEW) | `code-review-and-quality` + `harness/references/code-review-checklist.md` |
+| 빌드/타입/린트/테스트 검증 | `verify` |
+| 커밋·푸시·PR (SHIP) | `commit` |
+| 대규모 병렬 작업 (고급) | `orchestrate` (규율: `harness/references/orchestration-patterns.md`) |
+
+> 다른 코딩 에이전트(Cursor/Gemini CLI/Copilot 등)에서 이 스킬·지침을 쓰는 방법은 `docs/multi-agent-setup.md` 참조.
 
 ## Harness Templates
 
